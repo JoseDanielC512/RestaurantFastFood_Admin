@@ -1,4 +1,4 @@
-package co.edu.unab.castellanos.jose.resturantfastfood_admin;
+package co.edu.unab.castellanos.jose.restaurantfastfood_admin;
 
 import android.content.Context;
 

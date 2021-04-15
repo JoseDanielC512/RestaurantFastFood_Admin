@@ -1,14 +1,14 @@
-package co.edu.unab.castellanos.jose.resturantfastfood_admin;
+package co.edu.unab.castellanos.jose.restaurantfastfood_admin;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-public class FormularioActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_formulario);
+        setContentView(R.layout.activity_main);
     }
 }

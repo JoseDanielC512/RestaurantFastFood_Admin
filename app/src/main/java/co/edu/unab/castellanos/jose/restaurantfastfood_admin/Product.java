@@ -1,5 +1,8 @@
 package co.edu.unab.castellanos.jose.restaurantfastfood_admin;
 
+import com.google.firebase.firestore.Exclude;
+import com.google.firebase.firestore.PropertyName;
+
 import java.io.Serializable;
 
 public class Product implements Serializable {

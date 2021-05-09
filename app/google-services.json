@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "215358736033",
+    "project_id": "restaurantfastfood-dd4c9",
+    "storage_bucket": "restaurantfastfood-dd4c9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:215358736033:android:d2e10244ca8843c89b92e0",
+        "android_client_info": {
+          "package_name": "co.edu.unab.castellanos.jose.restaurantfastfood_clientes"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "215358736033-06emdfpmuub9gpdu736q6p53rctrqsr1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAFq_70E3kw1JJbrQzRNetus13eMoDdUjA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "215358736033-06emdfpmuub9gpdu736q6p53rctrqsr1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:215358736033:android:37d5baabcc25e03f9b92e0",
+        "android_client_info": {
+          "package_name": "co.edu.unab.castellanos.jose.resturantfastfood_admin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "215358736033-06emdfpmuub9gpdu736q6p53rctrqsr1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAFq_70E3kw1JJbrQzRNetus13eMoDdUjA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "215358736033-06emdfpmuub9gpdu736q6p53rctrqsr1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

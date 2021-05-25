@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">ResturantFastFood_Admin</string>
+    <string name="txt_product_name">Nombre del producto</string>
+    <string name="txt_product_price">Precio del producto</string>
+    <string name="txt_product_type">Tipo</string>
+    <string name="txt_product_description">Descripcion</string>
+    <string name="txt_product_picture">Url imágen</string>
+    <string name="bt_add_product">Agregar Producto</string>
+    <string name="txt_add_product">txt_add_product</string>
+    <string name="txt_agregar_producto">Agregar producto</string>
+    <string name="descripcion">Descripcion</string>
 </resources>

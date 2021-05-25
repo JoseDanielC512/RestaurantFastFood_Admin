@@ -1,4 +1,4 @@
-package co.edu.unab.castellanos.jose.restaurantfastfood_admin;
+package co.edu.unab.castellanos.jose.restaurantfastfood_admin.entity;
 
 import com.google.firebase.firestore.Exclude;
 import com.google.firebase.firestore.PropertyName;
@@ -10,7 +10,7 @@ public class Product implements Serializable {
     private String id;
     private String type;
     private String name;
-    private int price;
+    private double price;
     private String description;
     private String url_picture;
 
@@ -18,13 +18,16 @@ public class Product implements Serializable {
 
     }
 
-    public Product(String id, String type, String name, int price, String description, String url_picture) {
-        this.id = id;
-        this.type = type;
+
+    public Product(String type, String name, double price, String url_picture, String description) {
+
         this.name = name;
         this.price = price;
+        this.type = type;
         this.description = description;
         this.url_picture = url_picture;
+
+
     }
 
     public String getType() {
@@ -63,11 +66,11 @@ public class Product implements Serializable {
         this.name = name;
     }
 
-    public int getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 

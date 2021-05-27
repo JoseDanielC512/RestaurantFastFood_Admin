@@ -1,4 +1,4 @@
-package co.edu.unab.castellanos.jose.restaurantfastfood_admin.adapter;
+package co.edu.unab.castellanos.jose.restaurantfastfood_admin.view.adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,19 +14,22 @@ import com.bumptech.glide.Glide;
 import java.util.ArrayList;
 
 import co.edu.unab.castellanos.jose.restaurantfastfood_admin.R;
-import co.edu.unab.castellanos.jose.restaurantfastfood_admin.entity.Product;
+import co.edu.unab.castellanos.jose.restaurantfastfood_admin.model.entity.Order_products;
 
-public class ListAdapter extends RecyclerView.Adapter {
+public class OrderAdapter extends RecyclerView.Adapter {
 
-    private ArrayList<Product> products;
+
+    private ArrayList<Order_products> products;
     private OnItemClickListener onItemClickListener;
 
-    public ListAdapter(ArrayList<Product> products) {
+    public OrderAdapter(ArrayList<Order_products> products) {
+
         this.products = products;
         this.onItemClickListener = null;
     }
 
-    public void setProducts(ArrayList<Product> products) {
+
+    public void setProducts(ArrayList<Order_products> products) {
         this.products = products;
         notifyDataSetChanged();
     }
@@ -38,19 +41,19 @@ public class ListAdapter extends RecyclerView.Adapter {
     public class ProductViewHolder extends RecyclerView.ViewHolder{
 
         private ImageView ivPicture;
-        private TextView tvName, tvPrice;
+        private TextView tvName, tvState;
 
         public ProductViewHolder(@NonNull View itemView) {
             super(itemView);
-            ivPicture = itemView.findViewById(R.id.iv_picture_list);
-            tvName = itemView.findViewById(R.id.tv_name_list);
-            tvPrice = itemView.findViewById(R.id.tv_price_list);
+            ivPicture = itemView.findViewById(R.id.iv_pic_order);
+            tvName = itemView.findViewById(R.id.tv_name_product);
+            tvState = itemView.findViewById(R.id.tv_name_state);
         }
 
-        public void enlazar(Product product){
-            tvName.setText(product.getName());
-            tvPrice.setText("Precio: " + product.getPrice());
-            Glide.with(ivPicture.getContext()).load(product.getUrl_picture()).into(ivPicture);
+        public void enlazar(Order_products product){
+            tvName.setText(product.getProduct().getName());
+            //tvState.setText(order.getState()); cantidad y total
+            Glide.with(ivPicture.getContext()).load(product.getProduct().getUrl_picture()).into(ivPicture);
 
             if (onItemClickListener!=null){
                 itemView.setOnClickListener(new View.OnClickListener() {
@@ -66,13 +69,13 @@ public class ListAdapter extends RecyclerView.Adapter {
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_list, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_order, parent, false);
         return new ProductViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        Product product = products.get(position);
+        Order_products product = products.get(position);
         ProductViewHolder miHolder = (ProductViewHolder) holder;
         miHolder.enlazar(product);
     }
@@ -84,7 +87,6 @@ public class ListAdapter extends RecyclerView.Adapter {
 
     public interface OnItemClickListener{
 
-        void onItemClick(Product obj, int position);
+        void onItemClick(Order_products obj, int position);
     }
-
 }

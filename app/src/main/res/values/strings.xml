@@ -9,4 +9,7 @@
     <string name="txt_add_product">txt_add_product</string>
     <string name="txt_agregar_producto">Agregar producto</string>
     <string name="descripcion">Descripcion</string>
+    <string name="home">home</string>
+    <string name="orders">orders</string>
+    <string name="history">Historial</string>
 </resources>

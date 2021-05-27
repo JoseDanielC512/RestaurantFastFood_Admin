@@ -1,4 +1,4 @@
-package co.edu.unab.castellanos.jose.restaurantfastfood_admin.activity;
+package co.edu.unab.castellanos.jose.restaurantfastfood_admin.view.activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,10 +18,8 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 
-import co.edu.unab.castellanos.jose.restaurantfastfood_admin.adapter.ListAdapter;
+import co.edu.unab.castellanos.jose.restaurantfastfood_admin.view.adapter.ListAdapter;
 import co.edu.unab.castellanos.jose.restaurantfastfood_admin.R;
-import co.edu.unab.castellanos.jose.restaurantfastfood_admin.entity.Category;
-import co.edu.unab.castellanos.jose.restaurantfastfood_admin.entity.Product;
 
 public class ListActivity<FirebaseAuth> extends AppCompatActivity {
 

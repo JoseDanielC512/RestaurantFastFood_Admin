@@ -1,4 +1,4 @@
-package co.edu.unab.castellanos.jose.restaurantfastfood_admin.activity;
+package co.edu.unab.castellanos.jose.restaurantfastfood_admin.view.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -8,10 +8,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import co.edu.unab.castellanos.jose.restaurantfastfood_admin.network.CallBackApp;
-import co.edu.unab.castellanos.jose.restaurantfastfood_admin.repository.ProductRepository;
+import co.edu.unab.castellanos.jose.restaurantfastfood_admin.model.entity.Product;
+import co.edu.unab.castellanos.jose.restaurantfastfood_admin.model.network.CallBackApp;
+import co.edu.unab.castellanos.jose.restaurantfastfood_admin.view.repository.ProductRepository;
 import co.edu.unab.castellanos.jose.restaurantfastfood_admin.R;
-import co.edu.unab.castellanos.jose.restaurantfastfood_admin.entity.Product;
 
 public class FormularioActivity extends AppCompatActivity {
 
@@ -56,38 +56,17 @@ public class FormularioActivity extends AppCompatActivity {
 
                 if(misProductos!=null){
                     misProductos.setName(name);
-                    misProductos.setPrice(price);
+                    misProductos.setPrice((int) price);
                     misProductos.setDescription(descripcion);
                     misProductos.setUrl_picture(imagen);
 
-                    productoRepository.editarProductosFS(misProductos, new CallBackApp<Boolean>() {
-                        @Override
-                        public void correcto(Boolean respuesta) {
-                            if (respuesta){
-                                Intent datos = new Intent();
-                                datos.putExtra("product", misProductos);
-                                setResult(RESULT_OK, datos);
-
-                                finish();
-
-                            }else{
-
-                            }
-                        }
-                        @Override
-                        public void error(Exception error) {
-
-                        }
-                    });
-
-                }else{
-
-                    Product misNuevosProductos = new Product(type, name, price, imagen, descripcion);
+                    Product misNuevosProductos = new Product(type, name, (int) price, descripcion, imagen);
                     misNuevosProductos.setDescription(descripcion);
 
                     productoRepository.agregarProductosFS(misNuevosProductos, new CallBackApp<Boolean>() {
+
                         @Override
-                        public void correcto(Boolean respuesta) {
+                        public void correct(Boolean respuesta) {
                             if(respuesta){
                                 Intent datos = new Intent();
                                 datos.putExtra("product", misNuevosProductos);
@@ -97,6 +76,7 @@ public class FormularioActivity extends AppCompatActivity {
                             }else{
 
                             }
+
                         }
 
                         @Override

@@ -1,4 +1,4 @@
-package co.edu.unab.castellanos.jose.restaurantfastfood_admin.entity;
+package co.edu.unab.castellanos.jose.restaurantfastfood_admin.model.entity;
 
 import java.io.Serializable;
 

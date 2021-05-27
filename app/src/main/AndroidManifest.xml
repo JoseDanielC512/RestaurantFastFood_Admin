@@ -9,14 +9,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ResturantFastFood_Admin">
-        <activity android:name=".view.activity.FormularioActivity"></activity>
-        <activity android:name=".view.activity.ListActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+        <activity android:name=".view.activity.FormularioActivity"/>
+        <activity android:name=".view.activity.ListActivity"/>
+        <activity android:name=".view.activity.DetailActivity"/>
+        <activity android:name=".view.activity.MainActivity" >
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+
         </activity>
+
+
     </application>
 
 </manifest>

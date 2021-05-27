@@ -1,14 +1,13 @@
 package co.edu.unab.castellanos.jose.restaurantfastfood_admin.view.activity;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.content.Intent;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -18,28 +17,25 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 
-import co.edu.unab.castellanos.jose.restaurantfastfood_admin.view.adapter.ListAdapter;
 import co.edu.unab.castellanos.jose.restaurantfastfood_admin.R;
+import co.edu.unab.castellanos.jose.restaurantfastfood_admin.model.entity.Category;
+import co.edu.unab.castellanos.jose.restaurantfastfood_admin.model.entity.Product;
+import co.edu.unab.castellanos.jose.restaurantfastfood_admin.view.adapter.ListAdapter;
 
-public class ListActivity<FirebaseAuth> extends AppCompatActivity {
+public class ListActivity extends AppCompatActivity {
 
-    private FirebaseAuth mAuth;
-    private FirebaseFirestore db;
     private RecyclerView rvList;
     private ArrayList<Product> products;
     private ListAdapter adapter;
-    private static final int CODIGO_AGREGAR_PRODUCTO = 200;
-
-    public void irAgregarProducto(View v){
-        Intent i = new Intent(ListActivity.this, FormularioActivity.class);
-        startActivityForResult(i, CODIGO_AGREGAR_PRODUCTO);
-    }
+    private FirebaseFirestore db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_pedidos);
+        setContentView(R.layout.activity_list);
         rvList = findViewById(R.id.rv_list);
+
+        setTitle("lista");
 
         products = new ArrayList<>();
         adapter = new ListAdapter(products);
@@ -51,14 +47,14 @@ public class ListActivity<FirebaseAuth> extends AppCompatActivity {
         adapter.setOnItemClickListener(new ListAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(Product obj, int position) {
-//                Intent intent = new Intent(getApplicationContext(), DetailActivity.class);
-//                intent.putExtra("product", obj);
-//                startActivity(intent);
-//                finish();
+                Intent intent = new Intent(getApplicationContext(), DetailActivity.class);
+                intent.putExtra("product", obj);
+                startActivity(intent);
+                finish();
             }
         });
 
-        getProducts(category.getType());
+//        getProducts(category.getType());
 
         rvList.setAdapter(adapter);
         rvList.setLayoutManager(new LinearLayoutManager(getApplicationContext()));

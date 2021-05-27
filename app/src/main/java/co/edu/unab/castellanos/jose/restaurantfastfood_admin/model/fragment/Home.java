@@ -2,20 +2,30 @@ package co.edu.unab.castellanos.jose.restaurantfastfood_admin.model.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 
 import co.edu.unab.castellanos.jose.restaurantfastfood_admin.R;
 import co.edu.unab.castellanos.jose.restaurantfastfood_admin.model.entity.Category;
+import co.edu.unab.castellanos.jose.restaurantfastfood_admin.model.entity.Product;
 import co.edu.unab.castellanos.jose.restaurantfastfood_admin.view.activity.ListActivity;
 import co.edu.unab.castellanos.jose.restaurantfastfood_admin.view.adapter.CategoryAdapter;
+import co.edu.unab.castellanos.jose.restaurantfastfood_admin.view.adapter.ListAdapter;
 
 public class Home extends Fragment {
 
@@ -24,7 +34,11 @@ public class Home extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    private ArrayList<Category> categories;
+    private ArrayList<Product> products;
+    private FirebaseFirestore db;
+    private ListAdapter adapter;
+    private RecyclerView rvList;
+
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -60,43 +74,43 @@ public class Home extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
 
-        fillCategories();
-
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+
         View view = inflater.inflate(R.layout.fragment_home, container, false);
+        getProducts();
+        rvList = view.findViewById(R.id.rv_list_home);
+        adapter = new ListAdapter(new ArrayList<>());
+        rvList.setAdapter(adapter);
 
-        RecyclerView rvCategories = view.findViewById(R.id.rv_categories);
-        CategoryAdapter adapter = new CategoryAdapter(categories);
-
-        adapter.setOnItemClickListener(new CategoryAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(Category obj, int position) {
-                Intent intent = new Intent(getActivity(), ListActivity.class);
-                intent.putExtra("category", obj);
-                startActivity(intent);
-            }
-        });
-
-        rvCategories.setAdapter(adapter);
-        rvCategories.setLayoutManager(new LinearLayoutManager(getContext()));
-        rvCategories.setHasFixedSize(true);
+        rvList.setLayoutManager(new LinearLayoutManager(getContext()));
+        rvList.setHasFixedSize(true);
 
         return view;
     }
 
-    private void fillCategories(){
-        categories = new ArrayList<>();
-        if (categories.isEmpty()){
-            categories.add(new Category("hamburguesa", "Hamburguesas", "Lorem Ipsum", "https://d3jv0cqma81l17.cloudfront.net/articulos/1534/imagen_destacadas/original/5038_burger-master-bucaramanga-2019.jpg?1573812560"));
-            categories.add(new Category("perro", "Perros", "Lorem Ipsum", "https://juegoscocinarpasteleria.org/wp-content/uploads/2020/04/C%C3%B3mo-hervir-perros-calientes.jpg"));
-            categories.add(new Category("salchipapa", "Salchipapas", "Lorem Ipsum", "https://abrecht-group.com/wp-content/uploads/2017/03/5a134daf63fca.jpeg"));
-            categories.add(new Category("choripapa", "Choripapas", "Lorem Ipsum", "https://media.domicompras.com/aliados/970/productos/4.png"));
-            categories.add(new Category("otros", "Otros", "Lorem Ipsum", "https://foodbattlecolombia.com/wp-content/uploads/2019/12/FEDERICO.jpeg"));
-        }
+    private void getProducts(){
+        db = FirebaseFirestore.getInstance();
+        products = new ArrayList<>();
+        db.collection("products").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+
+                        Product product = document.toObject(Product.class);
+                        product.setId(document.getId());
+                        products.add(product);
+                        adapter.setProducts(products);
+                    }
+                } else {
+                    Log.w("Error getting documents", task.getException().getMessage());
+                }
+            }
+        });
     }
 }

@@ -14,11 +14,13 @@ import com.bumptech.glide.Glide;
 import java.util.ArrayList;
 
 import co.edu.unab.castellanos.jose.restaurantfastfood_admin.R;
+import co.edu.unab.castellanos.jose.restaurantfastfood_admin.model.entity.Product;
 
 public class ListAdapter extends RecyclerView.Adapter {
 
     private ArrayList<Product> products;
     private OnItemClickListener onItemClickListener;
+
 
     public ListAdapter(ArrayList<Product> products) {
         this.products = products;

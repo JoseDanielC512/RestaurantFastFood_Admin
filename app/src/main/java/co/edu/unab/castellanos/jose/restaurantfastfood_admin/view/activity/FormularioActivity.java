@@ -32,18 +32,6 @@ public class FormularioActivity extends AppCompatActivity {
 
         productoRepository = new ProductRepository(FormularioActivity.this);
 
-        Product misProductos = (Product) getIntent().getSerializableExtra("product");
-
-        if(misProductos!=null){
-
-            etType.setText(misProductos.getType());
-            etName.setText(misProductos.getName());
-            etPrice.setText(String.valueOf(misProductos.getPrice()));
-            etPicture.setText(misProductos.getUrl_picture());
-            etDescripcion.setText((misProductos.getDescription()));
-            btFormulario.setText(R.string.bt_add_product);
-        }
-
         btFormulario.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -54,51 +42,38 @@ public class FormularioActivity extends AppCompatActivity {
                 String imagen = etPicture.getText().toString();
                 String descripcion = etDescripcion.getText().toString();
 
-                if(misProductos!=null){
-                    misProductos.setName(name);
-                    misProductos.setPrice((int) price);
-                    misProductos.setDescription(descripcion);
-                    misProductos.setUrl_picture(imagen);
+                Product producto = new Product(type, name, price, descripcion, imagen);
 
-                    Product misNuevosProductos = new Product(type, name, (int) price, descripcion, imagen);
-                    misNuevosProductos.setDescription(descripcion);
+                productoRepository.agregarProductosFS(producto, new CallBackApp<Boolean>() {
+                    @Override
+                    public void correct(Boolean respuesta) {
+                        if (respuesta) {
+//                            Intent datos = new Intent();
+////                            datos.putExtra("product", producto);
+////                            setResult(RESULT_OK, datos);
+                            finish();
 
-                    productoRepository.agregarProductosFS(misNuevosProductos, new CallBackApp<Boolean>() {
-
-                        @Override
-                        public void correct(Boolean respuesta) {
-                            if(respuesta){
-                                Intent datos = new Intent();
-                                datos.putExtra("product", misNuevosProductos);
-                                setResult(RESULT_OK, datos);
-                                finish();
-
-                            }else{
-
-                            }
+                        } else {
 
                         }
+                    }
 
-                        @Override
-                        public void error(Exception error) {
+                    @Override
+                    public void error(Exception error) {
 
-                        }
-                    });
+                    }
+                });
 
-
-                }
 
             }
         });
-
     }
-
     private void asociarElementos(){
         etType = findViewById(R.id.et_product_type);
         etName = findViewById(R.id.et_product_name);
         etPrice = findViewById(R.id.et_product_price);
         etPicture = findViewById(R.id.et_product_picture);
-        etDescripcion = findViewById(R.id.et_product_description);
+        etDescripcion = findViewById(R.id.et_product_descripcion);
         btFormulario = findViewById(R.id.bt_add_product);
     }
 }

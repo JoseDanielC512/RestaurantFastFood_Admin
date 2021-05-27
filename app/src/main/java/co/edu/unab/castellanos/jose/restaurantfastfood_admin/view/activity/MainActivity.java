@@ -43,6 +43,8 @@ public class MainActivity extends AppCompatActivity {
 
         auth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = auth.getCurrentUser();
+        currentUser.getEmail();
+        
         if(currentUser == null){
             auth.createUserWithEmailAndPassword(ADMIN_EMAIL,ADMIN_PASS).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
@@ -52,6 +54,8 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
             });
+        }else {
+            Toast.makeText(this, "Bienvenido", Toast.LENGTH_SHORT).show();
         }
 
         toolbar = getSupportActionBar();

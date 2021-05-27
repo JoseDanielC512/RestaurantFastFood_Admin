@@ -14,7 +14,7 @@
         android:icon="@drawable/ic_baseline_history_24"
         android:title="@string/history" />
     <item
-        android:id="@+id/agregar"
+        android:id="@+id/add"
         android:icon="@android:drawable/ic_input_add"
         android:title="@string/txt_agregar_producto" />
 

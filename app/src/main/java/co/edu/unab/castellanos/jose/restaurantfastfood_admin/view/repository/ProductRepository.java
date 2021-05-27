@@ -9,14 +9,13 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import co.edu.unab.castellanos.jose.restaurantfastfood_admin.model.entity.Product;
 import co.edu.unab.castellanos.jose.restaurantfastfood_admin.model.network.CallBackApp;
-import co.edu.unab.castellanos.jose.restaurantfastfood_admin.view.activity.FormularioActivity;
 
 public class ProductRepository {
 
     private static final String COLECCION_PRODUCTOS = "products";
     private FirebaseFirestore firestore;
 
-    public ProductRepository(FormularioActivity formularioActivity) {
+    public ProductRepository() {
 
         firestore = FirebaseFirestore.getInstance();
     }
@@ -37,8 +36,8 @@ public class ProductRepository {
     }
 
 
-    public void agregarProductosFS(Product misProductos, CallBackApp<Boolean> callBack){
-        firestore.collection(COLECCION_PRODUCTOS).add(misProductos).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+    public void agregarProductosFS(Product product, CallBackApp<Boolean> callBack){
+        firestore.collection(COLECCION_PRODUCTOS).add(product).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
             @Override
             public void onComplete(@NonNull Task<DocumentReference> task) {
                 if (task.isSuccessful()) {

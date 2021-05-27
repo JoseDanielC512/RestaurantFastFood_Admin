@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -14,6 +15,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -35,6 +38,7 @@ public class Home extends Fragment {
     private static final String ARG_PARAM2 = "param2";
 
     private ArrayList<Product> products;
+    private FirebaseAuth auth;
     private FirebaseFirestore db;
     private ListAdapter adapter;
     private RecyclerView rvList;
@@ -73,20 +77,25 @@ public class Home extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        auth = FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance();
+        products = new ArrayList<>();
 
+        FirebaseUser currentUser = auth.getCurrentUser();
+//        currentUser.getEmail();
+        Toast.makeText(getActivity(), currentUser.getEmail(), Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
 
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         getProducts();
         rvList = view.findViewById(R.id.rv_list_home);
         adapter = new ListAdapter(new ArrayList<>());
-        rvList.setAdapter(adapter);
 
+        rvList.setAdapter(adapter);
         rvList.setLayoutManager(new LinearLayoutManager(getContext()));
         rvList.setHasFixedSize(true);
 
@@ -94,8 +103,7 @@ public class Home extends Fragment {
     }
 
     private void getProducts(){
-        db = FirebaseFirestore.getInstance();
-        products = new ArrayList<>();
+
         db.collection("products").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -104,11 +112,14 @@ public class Home extends Fragment {
 
                         Product product = document.toObject(Product.class);
                         product.setId(document.getId());
+
+                        Log.d("test", product.toString());
+
                         products.add(product);
                         adapter.setProducts(products);
                     }
                 } else {
-                    Log.w("Error getting documents", task.getException().getMessage());
+                    Log.w("test", task.getException().getMessage());
                 }
             }
         });
